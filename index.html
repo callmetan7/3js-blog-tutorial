@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="3js.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="vendor/prism.css" />
+    <link rel="shortcut icon" href="img/pfp.ico" type="image/x-icon" />
+    <title>Blog Page | 3 JS Tutorial</title>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="logo-details">
+        <div class="logo_name">Tanuj's Blog</div>
+        <i class="bx bx-menu" id="btn"></i>
+      </div>
+      <ul class="nav-list">
+        <li>
+          <a href="https://callmetan7.github.io">
+            <i class="bx bx-grid-alt"></i>
+            <span class="links_name">Dashboard</span>
+          </a>
+          <span class="tooltip">Dashboard</span>
+        </li>
+        <li>
+          <a href="https://callmetan7.github.io/personal-portfolio">
+            <i class="bx bx-user"></i>
+            <span class="links_name">Personal Portfolio</span>
+          </a>
+          <span class="tooltip">Portfolio</span>
+        </li>
+        <li>
+          <a href="https://github.com/callmetan7/callmetan7.github.io">
+            <i class="bx bx-folder"></i>
+            <span class="links_name">Github Repository</span>
+          </a>
+          <span class="tooltip">Github Repo</span>
+        </li>
+      </ul>
+    </div>
+    <div class="main">
+      <header class="title">
+        <h1>Three.js Guide</h1>
+        <span class="subheader"
+          ><img src="img/pfp.ico" alt="" class="profile" />
+          <p>Tanuj Padaliya| 4 minute read | 2020/11/24</p></span
+        >
+      </header>
+      <hr style="margin-top: 10px; opacity: 0.7" />
+      <img src="img/three.png" class="mainImg" alt="Three js logo" />
+      <h2>What is three.js</h2>
+      <article>
+        <p>
+          three.js is a JavaScript library used to build 3D websites. It uses
+          the WebGL Renderer to render graphics on to the screen. With three.js
+          you can animate, draw, and create 3D web pages without much trouble.
+          It was made by Ricardo Cabello and was hosted on Github under the MIT
+          License in 2010. Up until then it has been the most prefered and
+          easiest way to build 3D websites. <br />
+          In this course you will learn the basics of three.js. You will learn
+          how to set it up, how to write boilerplate code for it to work and how
+          to draw, animate and load textures on to the screen.
+        </p>
+      </article>
+      <hr style="margin-top: 10px; opacity: 0.7" />
+      <h2>How to set up a three.js project</h2>
+      <article>
+        <ol>
+          <li>
+            Open your terminal and type in
+            <pre class="language-bash">npm init vite</pre>
+          </li>
+          <li>Enter your project name</li>
+          <li>From the drop down menu click vannila</li>
+          <li>Click Vannila and hit enter</li>
+        </ol>
+        <p style="margin-top: 10px; margin-bottom: 10px">
+          This will create our a package.json file for us and everything else so
+          we don't have to.
+        </p>
+        <ol>
+          <li>
+            Open the project in your text editor and open the terminal
+            <pre class="language-shell">npm install three</pre>
+          </li>
+          <li>
+            Go to the node_modules/build/three.min.js or three.js and move
+            it to your js folder
+          </li>
+          <li>
+            Add a script src tab into your index.html that links to your
+            three.js file
+          </li>
+        </ol>
+        <hr style="margin-top: 10px; margin-bottom: 10px; opacity: 0.7" />
+        <img
+          src="img/threejs-structure.svg"
+          alt="three threejs-structure"
+          style="margin-bottom: 10px;"
+        />
+        <p style="margin-top: 10px">
+          three.js is composed of a scene, camera, and a renderer. The
+          first thing we initialise is the scene, camera, and the renderer. We
+          can initilise these by typing in the code shown below
+        </p>
+        <pre><code class="language-javascript">
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(
+75,
+window.innerWidth / window.innerHeight,
+0.1,
+1000
+);
+                
+const renderer = new THREE.WebGLRender;
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement); 
+            </code></pre>
+          <p>
+            After creating the camera, scene, and the WebGL Renderer. We can draw our first object to the screen <br>
+            In three.js to create a object you need to define 3 variables. The geometry of the object, the material, and the object itself. The geometry is the shape of the object and the material is the texture of the object. If your a more visual learner than here is a diagram to help demonsrate that
+            <img src="img/threejs-1cube-no-light-scene.svg" alt="threejs-1cube-no-light-scene">
+            As you can see the mesh or the object is derived from the geometry and the material.
+            <br>
+            Enough talk lets do something with three.js now! 
+            <ol>
+              <li>First lets create the geometry of the object
+                <pre><code class="language-javascript">const cubeGeo = new THREE.BoxGeometry();</code></pre>
+              </li> 
+              <li>
+                After this we need to create the material or the texture of the object. We can do this by simply using the MeshBasicMaterial from three.js
+                <pre><code class="language-javascript">const cubeMat = new THREE.MeshBasicMaterial({color: 0x00ff00});</code></pre>
+              </li>
+             <li>
+               And now we can make the object itself!
+               <pre><code class="language-javascript">const cube = new THREE.Mesh(cubeGeo, cubeMat);</code></pre>             
+             </li>
+            </ol>
+            <hr style="margin-top: 10px; opacity: 0.7; margin-bottom: 10px;" />
+            <p>After all this we just need to add the cube to the screen and set the position of the camera!</p> 
+            <pre><code class="language-javascript">
+scene.add(cube)
+camera.position.z = 5;
+            </code></pre>
+          </p>     
+          <p>
+            The final code should look like this!
+            <pre><code class="language-javascript">
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
+
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const cubeGeo = new THREE.BoxGeometry();
+const cubeMat = new THREE.MeshBasicMaterial({color: 0x00ff00});
+const cube = new THREE.Mesh(cubeGeo, cubeMat);
+
+scene.add(cube);
+camera.position.z = 5;
+renderer.render(scene, camera);
+            </code></pre>
+            <p>
+              And your final output should look something like this 
+              <img src="img/finalOutput.png" alt="final output" width="1200px" style="margin-top: 20px;">
+            </p>
+          </p> 
+      </article>
+    </div>
+    <footer><canvas height="20px"></canvas></footer>
+    <script src="vendor/prism.js"></script>
+  </body>
+</html>
